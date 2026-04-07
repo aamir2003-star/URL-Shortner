@@ -1,4 +1,97 @@
-/node_modules
-/dist
-/.env
+# ------------------------------
+# Node.js
+# ------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs/
+*.log
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory
+coverage/
+
+# Build outputs
+dist/
+build/
+
+# Dependency directories
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# ------------------------------
+# React / Frontend
+# ------------------------------
+.next/
+out/
+.cache/
+.parcel-cache/
+
+# Vite
+.vite/
+
+# Storybook
+storybook-static/
+
+# ------------------------------
+# MongoDB
+# ------------------------------
+data/
+*.db
+
+# ------------------------------
+# OS Files
+# ------------------------------
 .DS_Store
+Thumbs.db
+
+# ------------------------------
+# IDE / Editor
+# ------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ------------------------------
+# Misc
+# ------------------------------
+*.pem
+*.key
+*.crt
+
+# Temporary files
+tmp/
+temp/
+
+# ------------------------------
+# Docker (if used)
+# ------------------------------
+docker-compose.override.yml
+
+# ------------------------------
+# Testing
+# ------------------------------
+jest.config.js
+test-results/
