@@ -1,4 +1,4 @@
-# 🔗 LinkSift - Premium URL Shortener & Analytics
+# 🔗 LinkSift - URL Shortener & Analytics
 
 LinkSift is a modern, high-performance, full-stack URL shortening and tracking application. Built with a responsive glassmorphic UI using React 19, Tailwind CSS v4, and Zustand, and backed by a robust Node.js, Express v5, and MongoDB architecture. 
 
