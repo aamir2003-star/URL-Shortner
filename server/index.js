@@ -22,6 +22,14 @@ app.use(cookieParser());
 
 connectDB();
 
+app.get('/', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    message: 'Server is running',
+    timestamp: new Date(),
+  });
+});
+
 app.use('/api/url', urlRouter);
 app.use('/api/user', userRouter);
 
