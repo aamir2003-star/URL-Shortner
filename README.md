@@ -94,8 +94,9 @@ URLShortining/
    PORT=3000
    JWT_SECRET=your_super_secure_jwt_secret_phrase
    CLIENT_URL=http://localhost:5173
+   MONGO_URI=mongodb://localhost:27017/short-url
    ```
-   *Note: Mongoose connects to `mongodb://localhost:27017/short-url` by default. You can modify this in `server/src/config/db.js` if necessary.*
+   *Note: For MongoDB Atlas, set `MONGO_URI` to your Atlas connection string (e.g., `mongodb+srv://...`).*
 
 4. **Start the development server** (runs on port `3000` with hot reloading):
    ```bash
