@@ -11,9 +11,18 @@ dotenv.config();
 
 const app = express();
 
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174'];
+if (process.env.CLIENT_URL) {
+  if (process.env.CLIENT_URL.includes(',')) {
+    allowedOrigins.push(...process.env.CLIENT_URL.split(',').map(url => url.trim()));
+  } else {
+    allowedOrigins.push(process.env.CLIENT_URL.trim());
+  }
+}
+
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'http://localhost:5174'],
+    origin: allowedOrigins,
     credentials: true,
   })
 );

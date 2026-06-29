@@ -89,10 +89,11 @@ URLShortining/
    ```
 
 3. **Configure Environment Variables**:
-   Create a `.env` file in the root of the `server/` directory and configure your JWT secret:
+   Create a `.env` file in the root of the `server/` directory and configure your server variables:
    ```env
    PORT=3000
    JWT_SECRET=your_super_secure_jwt_secret_phrase
+   CLIENT_URL=http://localhost:5173
    ```
    *Note: Mongoose connects to `mongodb://localhost:27017/short-url` by default. You can modify this in `server/src/config/db.js` if necessary.*
 
@@ -115,7 +116,14 @@ URLShortining/
    npm install
    ```
 
-3. **Start the Vite dev server** (runs on `http://localhost:5173`):
+3. **Configure Environment Variables**:
+   Create a `.env` file in the root of the `client/` directory and configure your backend endpoint URL:
+   ```env
+   VITE_BACKEND_URL=http://localhost:3000
+   ```
+   *(For deployment, change this to your deployed backend URL, e.g., `https://url-shortner-9sxd.onrender.com`)*
+
+4. **Start the Vite dev server** (runs on `http://localhost:5173`):
    ```bash
    npm run dev
    ```
