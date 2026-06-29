@@ -13,11 +13,17 @@ const app = express();
 
 const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174'];
 if (process.env.CLIENT_URL) {
-  if (process.env.CLIENT_URL.includes(',')) {
-    allowedOrigins.push(...process.env.CLIENT_URL.split(',').map(url => url.trim()));
-  } else {
-    allowedOrigins.push(process.env.CLIENT_URL.trim());
-  }
+  const clientUrls = process.env.CLIENT_URL.includes(',')
+    ? process.env.CLIENT_URL.split(',')
+    : [process.env.CLIENT_URL];
+
+  clientUrls.forEach(url => {
+    let formattedUrl = url.trim();
+    if (formattedUrl.endsWith('/')) {
+      formattedUrl = formattedUrl.slice(0, -1);
+    }
+    allowedOrigins.push(formattedUrl);
+  });
 }
 
 app.use(
