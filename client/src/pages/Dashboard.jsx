@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { ExternalLink, Trash2, MousePointer2, Clock, Link2, Zap } from 'lucide-react';
+import { ExternalLink, Trash2, MousePointer2, Clock, Link2, Zap, ArrowRight } from 'lucide-react';
 import useURLStore from '../store/urlStore';
 
 const Dashboard = () => {
-  const { urls, loading, fetchURLs, deleteURL } = useURLStore();
+  const { urls, loading, fetchURLs, deleteURL, shortenURL } = useURLStore();
   const [copiedId, setCopiedId] = useState(null);
+  const [newUrl, setNewUrl] = useState('');
+  const [formError, setFormError] = useState('');
+  const [isShortening, setIsShortening] = useState(false);
 
   useEffect(() => {
     fetchURLs();
@@ -15,6 +18,20 @@ const Dashboard = () => {
     navigator.clipboard.writeText(fullUrl);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  const handleShortenSubmit = async (e) => {
+    e.preventDefault();
+    setFormError('');
+    setIsShortening(true);
+    try {
+      await shortenURL(newUrl);
+      setNewUrl('');
+    } catch (err) {
+      setFormError(err.response?.data?.message || 'Failed to shorten URL');
+    } finally {
+      setIsShortening(false);
+    }
   };
 
   if (loading) {
@@ -40,9 +57,37 @@ const Dashboard = () => {
 
       <div className="grid gap-4">
         {urls.length === 0 ? (
-          <div className="bg-gray-800/50 border border-gray-700 border-dashed rounded-2xl p-12 text-center text-gray-500">
-            <Link2 className="w-12 h-12 mx-auto mb-4 opacity-20" />
-            <p className="text-lg">No links shortened yet. Start by shortening your first URL!</p>
+          <div className="flex flex-col items-center justify-center bg-gray-800/30 border border-gray-700 border-dashed rounded-2xl p-8 md:p-12 text-center space-y-6">
+            <div className="space-y-2">
+              <Link2 className="w-12 h-12 mx-auto text-blue-500/70" />
+              <h3 className="text-xl font-bold text-white">No links shortened yet</h3>
+              <p className="text-gray-400 max-w-md mx-auto">
+                Start by creating your first shortened link right here and track its analytics in real-time.
+              </p>
+            </div>
+
+            <form onSubmit={handleShortenSubmit} className="w-full max-w-2xl relative group">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+              <div className="relative flex flex-col sm:flex-row gap-3 p-1.5 bg-gray-800 rounded-xl border border-gray-700">
+                <input
+                  type="url"
+                  placeholder="Paste your long URL here..."
+                  required
+                  className="flex-1 bg-transparent px-4 py-3 text-white placeholder-gray-500 focus:outline-none text-base"
+                  value={newUrl}
+                  onChange={(e) => setNewUrl(e.target.value)}
+                />
+                <button
+                  type="submit"
+                  disabled={isShortening}
+                  className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 text-white px-6 py-3 rounded-lg font-bold text-base flex items-center justify-center space-x-2 transition-all active:scale-95 whitespace-nowrap"
+                >
+                  <span>{isShortening ? 'Shortening...' : 'Shorten'}</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </form>
+            {formError && <p className="text-red-400 text-sm">{formError}</p>}
           </div>
         ) : (
           urls.map((url) => (
