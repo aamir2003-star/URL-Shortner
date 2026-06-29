@@ -4,6 +4,10 @@ LinkSift is a modern, high-performance, full-stack URL shortening and tracking a
 
 It enables users to securely sign up, create customized short URLs, manage their link portfolio on a slick dashboard, and monitor click analytics in real-time.
 
+### 🌐 Live Deployments
+- **Frontend (Client)**: [https://url-shortner-six-sigma.vercel.app](https://url-shortner-six-sigma.vercel.app/)
+
+
 ---
 
 ## 🚀 Key Features
