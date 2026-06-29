@@ -7,7 +7,8 @@ const RedirectPage = () => {
   useEffect(() => {
     if (shortID) {
       // Redirect to the backend which handles the logic and click tracking
-      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+      const rawBackendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+      const backendUrl = rawBackendUrl.endsWith('/') ? rawBackendUrl.slice(0, -1) : rawBackendUrl;
       window.location.href = `${backendUrl}/r/${shortID}`;
     }
   }, [shortID]);
